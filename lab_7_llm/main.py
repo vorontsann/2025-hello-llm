@@ -8,8 +8,6 @@ Working with Large Language Models.
 from datasets import load_dataset, Dataset
 from pathlib import Path
 from typing import Iterable, Sequence
-
-from datasets.table import Table
 from pandas import DataFrame
 
 from core_utils.llm.llm_pipeline import AbstractLLMPipeline
@@ -93,14 +91,13 @@ class TaskDataset(Dataset):
     A class that converts pd.DataFrame to Dataset and works with it.
     """
 
-    def __init__(self, data: pd.DataFrame, arrow_table: Table) -> None:
+    def __init__(self, data: pd.DataFrame) -> None:
         """
         Initialize an instance of TaskDataset.
 
         Args:
             data (pandas.DataFrame): Original data
         """
-        super().__init__(arrow_table)
 
     def __len__(self) -> int:
         """
@@ -205,7 +202,6 @@ class TaskEvaluator(AbstractTaskEvaluator):
             data_path (pathlib.Path): Path to predictions
             metrics (Iterable[Metrics]): List of metrics to check
         """
-        super().__init__(data_path, metrics)
 
     def run(self) -> dict:
         """
